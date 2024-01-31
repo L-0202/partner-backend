@@ -1,9 +1,9 @@
 spring:
   application:
-    name:user-center
+    name:partner-backend
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/usercenter
+    url: jdbc:mysql://localhost:3306/partner
     username: root
     password: 123456
     # session失效时间
@@ -17,6 +17,7 @@ server:
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     db-config:
       logic-delete-field: isDelete #全局逻辑删除的实体字段名

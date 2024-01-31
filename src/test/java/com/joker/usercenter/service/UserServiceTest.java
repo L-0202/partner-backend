@@ -1,11 +1,15 @@
 package com.joker.usercenter.service;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import com.joker.usercenter.model.domain.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 
@@ -69,5 +73,12 @@ class UserServiceTest {
             userAccount = "yupi";
             result = userService.userRegister(userAccount, userPassword, checkPassword,planetCode);
             Assertions.assertTrue(result > 0);
+        }
+
+        @Test
+    void  testSearchUsersById(){
+            List<String> tagNameList = Arrays.asList("java","python");
+            List<User> userList = userService.searchUsersByTags(tagNameList);
+            Assert.notNull(userList);
         }
 }
