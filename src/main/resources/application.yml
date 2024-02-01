@@ -9,6 +9,18 @@ spring:
     # session失效时间
   session:
     timeout: 86400
+    store-type: redis
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  #redis配置
+  redis:
+    port: 6379
+    host: localhost
+    database: 0
+  profiles:
+    active: dev
 server:
   port: 8080
   servlet:
