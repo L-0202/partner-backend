@@ -25,6 +25,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import static com.joker.usercenter.constant.UserConstant.ADMIN_ROLE;
 import static com.joker.usercenter.constant.UserConstant.USER_LOGIN_STATE;
 
 
@@ -199,6 +200,81 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
                 }
                 return true;
         }).map(this::getSafetyUser).collect(Collectors.toList());
+    }
+
+    /**
+     * 更新用户信息
+     * @param user
+     * @param loginUser
+     * @return
+     */
+    @Override
+    public Integer updateUser(User user,User loginUser) {
+        //查询用户
+        long userId = user.getId();
+        if (userId < 0){
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        //管理员可更新任何用户
+        //用户只能修改自己的信息
+        if (!isAdmin(loginUser) && userId != loginUser.getId()){
+            throw new BusinessException(ErrorCode.NO_AUTH);
+        }
+        User oldUser = userMapper.selectById(userId);
+        if (oldUser == null){
+            throw new BusinessException(ErrorCode.NULL_ERROR);
+        }
+        return  userMapper.updateById(user);
+    }
+
+    /**
+     * 获取登录用户
+     * @param request
+     * @return
+     */
+    @Override
+    public User getLoginUser(HttpServletRequest request) {
+        if (request == null){
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        Object userObj = request.getSession().getAttribute(USER_LOGIN_STATE);
+        //鉴权
+        if (userObj == null){
+            throw new BusinessException(ErrorCode.NO_AUTH);
+        }
+        return (User) userObj;
+    }
+
+    /**
+     * 鉴权，是否为管理员
+     * @param request
+     * @return
+     */
+    @Override
+    public boolean isAdmin(HttpServletRequest request) {
+        if (request == null){
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        //鉴权，是否为管理员
+        Object userObj = request.getSession().getAttribute(USER_LOGIN_STATE);
+        User user = (User) userObj;
+        if (user == null || user.getUserRole() != ADMIN_ROLE){
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 鉴权
+     * @param loginUser
+     * @return
+     */
+    @Override
+    public boolean isAdmin(User loginUser) {
+        if (loginUser == null || loginUser.getUserRole() != ADMIN_ROLE){
+            return false;
+        }
+        return true;
     }
 }
 

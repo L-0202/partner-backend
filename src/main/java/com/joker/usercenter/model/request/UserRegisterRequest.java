@@ -1,4 +1,4 @@
-package com.joker.usercenter.model.domain.request;
+package com.joker.usercenter.model.request;
 
 import lombok.Data;
 
