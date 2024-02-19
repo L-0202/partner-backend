@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 
-
 /**
  * 队伍封装实体类
  */
@@ -24,6 +23,11 @@ public class TeamQuery extends PageRequest {
      * 队伍名称
      */
     private String name;
+
+    /**
+     * 查询关键字（同时对队伍名称和描述搜索）
+     */
+    private String searchText;
 
     /**
      * 描述
