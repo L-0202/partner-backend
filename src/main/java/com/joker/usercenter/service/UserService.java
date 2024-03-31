@@ -2,6 +2,7 @@ package com.joker.usercenter.service;
 
 import com.joker.usercenter.model.domain.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.joker.usercenter.model.vo.UserVO;
 import io.swagger.models.auth.In;
 
 import javax.servlet.http.HttpServletRequest;
@@ -79,4 +80,12 @@ public interface UserService extends IService<User> {
      * @return
      */
     boolean isAdmin(User loginUser);
+
+    /**
+     * 匹配用户
+     * @param num
+     * @param loginUser
+     * @return
+     */
+    List<User> matchUser(long num, User loginUser);
 }

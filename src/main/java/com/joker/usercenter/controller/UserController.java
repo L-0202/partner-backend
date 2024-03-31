@@ -9,6 +9,7 @@ import com.joker.usercenter.exception.BusinessException;
 import com.joker.usercenter.model.domain.User;
 import com.joker.usercenter.model.request.UserLoginRequest;
 import com.joker.usercenter.model.request.UserRegisterRequest;
+import com.joker.usercenter.model.vo.UserVO;
 import com.joker.usercenter.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -167,5 +168,14 @@ public class UserController {
     private User apply(User user) {
         user.setUserPassword(null);
         return userService.getSafetyUser(user);
+    }
+
+    @GetMapping("/match")
+    public BaseResponse<List<User>> matchUser(long num, HttpServletRequest request){
+        if (num <= 0 || num > 20){
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        User loginUser = userService.getLoginUser(request);
+        return ResultUtils.success(userService.matchUser(num,loginUser));
     }
 }

@@ -12,6 +12,8 @@ import java.util.List;
  */
 @Data
 public class TeamUserVO implements Serializable {
+    
+    private static final long serialVersionUID = 4573996075532238731L;
     /**
      * id
      */
@@ -58,8 +60,6 @@ public class TeamUserVO implements Serializable {
      */
     private Date updateTime;
 
-
-    private static final long serialVersionUID = 4573996075532238731L;
 
     /**
      * 队伍用户列表

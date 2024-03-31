@@ -5,6 +5,7 @@ import com.joker.usercenter.model.domain.Team;
 import com.joker.usercenter.model.domain.User;
 import com.joker.usercenter.model.dto.TeamQuery;
 import com.joker.usercenter.model.request.TeamJoinRequest;
+import com.joker.usercenter.model.request.TeamQuitRequest;
 import com.joker.usercenter.model.request.TeamUpdateRequest;
 import com.joker.usercenter.model.vo.TeamUserVO;
 
@@ -36,6 +37,7 @@ public interface TeamService extends IService<Team> {
     /**
      * 更新队伍信息
      * @param teamUpdateRequest 队伍更新请求封装类
+     * @param loginUser
      * @return
      */
     boolean updateTeam(TeamUpdateRequest teamUpdateRequest,User loginUser);
@@ -43,7 +45,24 @@ public interface TeamService extends IService<Team> {
     /**
      * 用户加入队伍
      * @param teamJoinRequest 用户加入队伍请求封装体
+     * @param loginUser
      * @return
      */
     boolean joinTeam(TeamJoinRequest teamJoinRequest,User loginUser);
+
+    /**
+     * 用户退出队伍
+     * @param teamQuitRequest 用户退出队伍请求封装体
+     * @param loginUser
+     * @return
+     */
+    boolean quitTeam(TeamQuitRequest teamQuitRequest,User loginUser);
+
+    /**
+     * 队长解散队伍
+     * @param id 队伍id
+     * @param loginUser
+     * @return
+     */
+    boolean deleteTeam(long id,User loginUser);
 }

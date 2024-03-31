@@ -6,6 +6,8 @@ import com.joker.usercenter.common.PageRequest;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.List;
+
 
 /**
  * 队伍封装实体类
@@ -18,6 +20,11 @@ public class TeamQuery extends PageRequest {
      */
     @TableId(type = IdType.AUTO)
     private Long id;
+
+    /**
+     * id列表
+     */
+    private List<Long> idList;
 
     /**
      * 队伍名称
